@@ -45,7 +45,6 @@ class AppAuthController extends ResourceController {
     }
     final salt = generateRandomSalt();
     final hashPassword = generatePasswordHash(user.password!, salt);
-    final User fetchedUser = User();
 
     try {
       late final int id;
@@ -76,15 +75,6 @@ class AppAuthController extends ResourceController {
         body: MyResponseModel(message: error.message),
       );
     }
-
-    return Response.ok(
-      MyResponseModel(data: {
-        "id": fetchedUser.id,
-        "refreshToken": fetchedUser.refreshToken,
-        "accessToken": fetchedUser.accessToken,
-      }, message: 'Успешная регистрация')
-          .toJson(),
-    );
   }
 
   @Operation.post("refresh")
